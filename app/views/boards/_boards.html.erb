@@ -1,0 +1,21 @@
+<ul class="list-unstyled">
+    <% boards.each do |board| %>
+        <li class="media mb-3">
+            <img class="mr-2 rounded" src="<%= gravatar_url(board.user, { size: 50 }) %>" alt="">
+            <div class="media-body">
+                <div>
+                    <%= link_to board.user.name, user_path(board.user) %> <span class="text-muted">posted at <%= board.created_at %></span>
+                </div>
+                <div>
+                    <p class="mb-0"><%= board.content %></p>
+                </div>
+                <div>
+                    <% if current_user == board.user %>
+                        <%= link_to "Delete", board, method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger btn-sm' %>
+                    <% end %>
+                </div>
+            </div>
+        </li>
+    <% end %>
+    <%= paginate boards %>
+</ul>

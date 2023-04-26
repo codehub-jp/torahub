@@ -6,8 +6,12 @@ class UsersController < ApplicationController
     end
 
     def show
-        #プロフィール関連
+        #プロフィール表示
         @user = User.find(params[:id])
+
+        #Boardへの投稿内容を表示
+        @boards = @user.boards.order(id: :desc).page(params[:page])
+        counts(@user)
 
     end
 
@@ -30,19 +34,26 @@ class UsersController < ApplicationController
     end
 
     def edit
+        #プロフィール編集
+        @user = User.find(params[:id])
     end
 
     def update
+        #プロフィール修正後の保存
+        @user = User.find(params[:id])
         if @user.update(user_params)
-        redirect_to @user, notice: 'User was successfully updated.'
+            redirect_to user_path(@user)
         else
-        render :edit
+            render 'edit'
         end
     end
 
     def destroy
+        #退会機能の実装
+        @user = User.find(params[:id])
         @user.destroy
-        redirect_to users_url, notice: 'User was successfully destroyed.'
+        reset_session
+        redirect_to users_url, notice: '退会が完了しました。ご利用ありがとうございました。'
     end
 
     private
