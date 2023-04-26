@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
-  get 'toppages/index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   root to: 'toppages#index'
 
-  #Signup
+  #ログイン/ログアウト
+  get 'login', to: 'sessions#new'
+  post 'login', to: 'sessions#create'
+  delete 'logout', to: 'sessions#destroy'
+
+  #新規登録
   get 'signup', to: 'users#new'
   resources :users, only: [:index, :show, :create]
 
