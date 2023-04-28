@@ -81,6 +81,6 @@ test:
 #
 production:
   <<: *default
-  database: hometowns_production
-  username: hometowns
-  password: <%= ENV["HOMETOWNS_DATABASE_PASSWORD"] %>
+  database: torahub
+  username: <%= ENV['RENDER_DATABASE_USER'] %>
+  password: <%= ENV['RENDER_DATABASE_PASSWORD'] %>
